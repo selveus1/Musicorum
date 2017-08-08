@@ -1,8 +1,11 @@
 package com.example.athena.musicorum.activities;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.athena.musicorum.R;
+import com.example.athena.musicorum.fragments.AlbumsFragment;
+import com.example.athena.musicorum.fragments.ArtistsFragment;
+import com.example.athena.musicorum.fragments.PlaylistsFragment;
+import com.example.athena.musicorum.fragments.SongsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,12 +44,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        displayScreen(R.id.nav_songs);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -54,12 +64,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -76,28 +88,45 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+        displayScreen(item.getItemId());
+        return true;
+
+
+    }
+
+
+    private void displayScreen(int itemId){
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        Fragment fragment = null;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch(itemId){
+            case R.id.nav_songs:
+                fragment = new SongsFragment();
+                break;
+            case R.id.nav_albums:
+                fragment = new AlbumsFragment();
+                break;
+            case R.id.nav_artists:
+                fragment = new ArtistsFragment();
+                break;
+            default: //case R.id.nav_playlists:
+                fragment = new PlaylistsFragment();
+                break;
+        }
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if(fragment != null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, fragment);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        //return true;
     }
 }
