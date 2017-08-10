@@ -101,7 +101,7 @@ public class SongsFragment extends Fragment{
                     bitmap = MediaStore.Images.Media.getBitmap(
                             getActivity().getApplicationContext()
                                     .getContentResolver(), albumArtUri);
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
 
                 } catch (FileNotFoundException exception) {
                     exception.printStackTrace();

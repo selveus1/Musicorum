@@ -10,31 +10,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.athena.musicorum.R;
-import com.example.athena.musicorum.objects.Song;
+import com.example.athena.musicorum.objects.Album;
 
 import java.util.List;
 
-
 /**
- * Created by athena on 8/7/17.
+ * Created by athena on 8/10/17.
  */
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
 
     private final Context context;
-    public List<Song> songs;
+    public List<Album> albums;
 
 
-    public SongAdapter(Context context, List<Song> songs){
+    public AlbumAdapter(Context context, List<Album> albums){
         this.context = context;
-        this.songs = songs;
+        this.albums = albums;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.field_song, parent, false);
+                .inflate(R.layout.field_album, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -43,11 +41,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        if(songs != null || songs.size() > 0){
-            holder.cover.setImageBitmap(songs.get(position).getAlbumCover() );
-            holder.title.setText(songs.get(position).getTitle());
-            holder.artist.setText(songs.get(position).getArtist());
-            holder.album.setText(songs.get(position).getAlbum());
+        if(albums != null || albums.size() > 0){
+            holder.cover.setImageBitmap(albums.get(position).getCover() );
+            holder.artist.setText(albums.get(position).getAlbumArtists());
+            holder.album.setText(albums.get(position).getTitle());
         }
 
     }
@@ -55,23 +52,21 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return songs.size();
+        return albums.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener{
         public ImageView cover;
-        public TextView title;
         public TextView artist;
         public TextView album;
 
         public ViewHolder(View itemView){
             super(itemView);
-            cover = (ImageView)itemView.findViewById(R.id.album_cover);
-            title = (TextView)itemView.findViewById(R.id.song_title);
-            artist = (TextView)itemView.findViewById(R.id.song_artist);
-            album = (TextView)itemView.findViewById(R.id.song_album);
+            cover = (ImageView)itemView.findViewById(R.id.album_image);
+            artist = (TextView)itemView.findViewById(R.id.album_title);
+            album = (TextView)itemView.findViewById(R.id.album_artist);
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
         }
