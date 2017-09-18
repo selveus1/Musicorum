@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/album_cover"
         android:layout_toRightOf="@+id/album_cover"
+        android:layout_marginLeft="7dp"
         android:text="Song Title"/>
 
     <TextView
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/song_title"
         android:layout_toRightOf="@+id/album_cover"
+        android:layout_marginLeft="7dp"
         android:text="Song Artist"/>
 
     <TextView
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/song_artist"
         android:layout_toRightOf="@+id/album_cover"
+        android:layout_marginLeft="7dp"
         android:text="Song Album"/>
 
 </RelativeLayout>
